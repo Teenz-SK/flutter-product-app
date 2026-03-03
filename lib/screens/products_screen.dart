@@ -1,39 +1,33 @@
 import 'package:flutter/material.dart';
-import '../models/shopping_item.dart';
+import '../models/product.dart';
+import 'product_details_screen.dart';
 
-class ProductsScreen extends StatefulWidget {
-  const ProductsScreen({super.key});
+class ProductsScreen extends StatelessWidget {
 
-  @override
-  State<ProductsScreen> createState() => _ProductsScreenState();
-}
+  ProductsScreen({super.key});
 
-class _ProductsScreenState extends State<ProductsScreen> {
+  // Dummy Product Data
+  final List<Product> products = [
 
-  // TextField Controller
-  TextEditingController controller = TextEditingController();
+    Product(
+      name: "Laptop",
+      price: 55000,
+      description: "High performance laptop suitable for work and gaming.",
+    ),
 
-  // Shopping List
-  List<ShoppingItem> items = [];
+    Product(
+      name: "Mobile Phone",
+      price: 25000,
+      description: "Latest smartphone with excellent camera quality.",
+    ),
 
-  // Add Item
-  void addItem() {
+    Product(
+      name: "Headphones",
+      price: 3000,
+      description: "Wireless headphones with noise cancellation feature.",
+    ),
 
-    if(controller.text.isEmpty) return;
-
-    setState(() {
-
-      items.add(
-        ShoppingItem(
-          name: controller.text,
-        ),
-      );
-
-      controller.clear();
-
-    });
-
-  }
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -41,153 +35,56 @@ class _ProductsScreenState extends State<ProductsScreen> {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text("Shopping List"),
+        title: const Text("Products"),
         centerTitle: true,
       ),
 
-      body: Padding(
+      body: ListView.builder(
 
-        padding: const EdgeInsets.all(15),
+        itemCount: products.length,
 
-        child: Column(
+        itemBuilder: (context, index) {
 
-          children: [
+          final product = products[index];
 
-            // Input Field
-            TextField(
+          return Card(
 
-              controller: controller,
+            margin: const EdgeInsets.all(12),
 
-              decoration: InputDecoration(
+            elevation: 3,
 
-                hintText: "Enter Product Name",
+            child: ListTile(
 
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+              title: Text(
+                product.name,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
-
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.add),
-                  onPressed: addItem,
-                ),
-
               ),
 
-              onSubmitted: (value){
-                addItem();
+              subtitle: Text("₹${product.price}"),
+
+              trailing: const Icon(Icons.arrow_forward_ios),
+
+              onTap: () {
+
+                // Passing FULL model object
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProductDetailsScreen(product: product),
+                  ),
+                );
+
               },
 
             ),
 
-            const SizedBox(height: 20),
+          );
 
-            // List
-            Expanded(
-
-              child: ListView.builder(
-
-                itemCount: items.length,
-
-                itemBuilder: (context,index){
-
-                  return Card(
-
-                    margin: const EdgeInsets.only(bottom: 10),
-
-                    child: ListTile(
-
-                      title: Text(
-                        items[index].name,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
-                      trailing: Row(
-
-                        mainAxisSize: MainAxisSize.min,
-
-                        children: [
-
-                          // Decrease
-                          IconButton(
-
-                            icon: const Icon(Icons.remove),
-
-                            onPressed: (){
-
-                              setState(() {
-
-                                if(items[index].quantity > 1){
-
-                                  items[index].quantity--;
-
-                                }
-
-                              });
-
-                            },
-
-                          ),
-
-                          // Quantity
-                          Text(
-                            items[index].quantity.toString(),
-                            style: const TextStyle(fontSize: 18),
-                          ),
-
-                          // Increase
-                          IconButton(
-
-                            icon: const Icon(Icons.add),
-
-                            onPressed: (){
-
-                              setState(() {
-
-                                items[index].quantity++;
-
-                              });
-
-                            },
-
-                          ),
-
-                          // Delete
-                          IconButton(
-
-                            icon: const Icon(Icons.delete,color: Colors.red),
-
-                            onPressed: (){
-
-                              setState(() {
-
-                                items.removeAt(index);
-
-                              });
-
-                            },
-
-                          ),
-
-                        ],
-
-                      ),
-
-                    ),
-
-                  );
-
-                },
-
-              ),
-
-            ),
-
-          ],
-
-        ),
+        },
 
       ),
 

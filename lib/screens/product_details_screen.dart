@@ -20,108 +20,55 @@ class ProductDetailsScreen extends StatelessWidget {
         centerTitle: true,
       ),
 
-      body: SafeArea(
+      body: Padding(
 
-        child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
 
-          child: Padding(
+        child: Column(
 
-            padding: const EdgeInsets.all(20),
+          crossAxisAlignment: CrossAxisAlignment.start,
 
-            child: Column(
+          children: [
 
-              crossAxisAlignment: CrossAxisAlignment.center,
-
-              children: [
-
-                const SizedBox(height: 20),
-
-                // Product Icon
-                CircleAvatar(
-
-                  radius: 70,
-
-                  backgroundColor: Colors.blue.shade100,
-
-                  child: Icon(
-                    product.icon,
-                    size: 70,
-                    color: Colors.blue,
-                  ),
-
-                ),
-
-                const SizedBox(height: 30),
-
-                // Product Name
-                Text(
-
-                  product.name,
-
-                  textAlign: TextAlign.center,
-
-                  style: const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
-
-                ),
-
-                const SizedBox(height: 15),
-
-                // Price
-                Text(
-
-                  "₹${product.price}",
-
-                  style: const TextStyle(
-                    fontSize: 22,
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
-                  ),
-
-                ),
-
-                const SizedBox(height: 30),
-
-                // Description Title
-                const Align(
-
-                  alignment: Alignment.centerLeft,
-
-                  child: Text(
-                    "Description",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-
-                ),
-
-                const SizedBox(height: 10),
-
-                // Description Text
-                Text(
-
-                  product.description,
-
-                  textAlign: TextAlign.justify,
-
-                  style: const TextStyle(
-                    fontSize: 16,
-                    height: 1.5,
-                  ),
-
-                ),
-
-                const SizedBox(height: 20),
-
-              ],
-
+            Text(
+              product.name,
+              style: const TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
             ),
 
-          ),
+            const SizedBox(height: 15),
+
+            Text(
+              "Price: ₹${product.price}",
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.green,
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            const Text(
+              "Description",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            Text(
+              product.description,
+              style: const TextStyle(
+                fontSize: 16,
+                height: 1.5,
+              ),
+            ),
+
+          ],
 
         ),
 
