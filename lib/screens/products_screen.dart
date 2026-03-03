@@ -1,43 +1,39 @@
 import 'package:flutter/material.dart';
-import '../models/product.dart';
-import 'product_details_screen.dart';
+import '../models/shopping_item.dart';
 
-class ProductsScreen extends StatelessWidget {
+class ProductsScreen extends StatefulWidget {
+  const ProductsScreen({super.key});
 
-  ProductsScreen({super.key});
+  @override
+  State<ProductsScreen> createState() => _ProductsScreenState();
+}
 
-  // Dummy Products List
-  final List<Product> products = [
+class _ProductsScreenState extends State<ProductsScreen> {
 
-    Product(
-      name: "Mobile Phone",
-      price: 25000,
-      description: "High quality smartphone with best performance.",
-      icon: Icons.phone_android,
-    ),
+  // TextField Controller
+  TextEditingController controller = TextEditingController();
 
-    Product(
-      name: "Laptop",
-      price: 55000,
-      description: "Powerful laptop for office and study work.",
-      icon: Icons.laptop,
-    ),
+  // Shopping List
+  List<ShoppingItem> items = [];
 
-    Product(
-      name: "Headphones",
-      price: 3000,
-      description: "Wireless headphones with deep bass sound.",
-      icon: Icons.headphones,
-    ),
+  // Add Item
+  void addItem() {
 
-    Product(
-      name: "Smart Watch",
-      price: 5000,
-      description: "Track your fitness and daily activities.",
-      icon: Icons.watch,
-    ),
+    if(controller.text.isEmpty) return;
 
-  ];
+    setState(() {
+
+      items.add(
+        ShoppingItem(
+          name: controller.text,
+        ),
+      );
+
+      controller.clear();
+
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,81 +41,139 @@ class ProductsScreen extends StatelessWidget {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text("Products"),
+        title: const Text("Shopping List"),
         centerTitle: true,
       ),
 
-      body: SafeArea(
+      body: Padding(
 
-        child: ListView.builder(
+        padding: const EdgeInsets.all(15),
 
-          padding: const EdgeInsets.all(12),
+        child: Column(
 
-          itemCount: products.length,
+          children: [
 
-          itemBuilder: (context,index){
+            // Input Field
+            TextField(
 
-            final product = products[index];
+              controller: controller,
 
-            return Card(
+              decoration: InputDecoration(
 
-              elevation: 3,
+                hintText: "Enter Product Name",
 
-              margin: const EdgeInsets.only(bottom: 12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
 
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: addItem,
+                ),
+
               ),
 
-              child: ListTile(
+              onSubmitted: (value){
+                addItem();
+              },
 
-                contentPadding: const EdgeInsets.all(15),
+            ),
 
-                // Icon
-                leading: CircleAvatar(
+            const SizedBox(height: 20),
 
-                  radius: 28,
+            // List
+            Expanded(
 
-                  backgroundColor: Colors.blue.shade100,
+              child: ListView.builder(
 
-                  child: Icon(
-                    product.icon,
-                    size: 30,
-                    color: Colors.blue,
-                  ),
+                itemCount: items.length,
 
-                ),
+                itemBuilder: (context,index){
 
-                // Product Name
-                title: Text(
-                  product.name,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                  return Card(
 
-                // Product Price
-                subtitle: Text(
-                  "₹${product.price}",
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.green,
-                  ),
-                ),
+                    margin: const EdgeInsets.only(bottom: 10),
 
-                trailing: const Icon(Icons.arrow_forward_ios),
+                    child: ListTile(
 
-                onTap: () {
+                      title: Text(
+                        items[index].name,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
 
-                  Navigator.push(
+                      trailing: Row(
 
-                    context,
+                        mainAxisSize: MainAxisSize.min,
 
-                    MaterialPageRoute(
+                        children: [
 
-                      builder: (context) =>
-                          ProductDetailsScreen(product: product),
+                          // Decrease
+                          IconButton(
+
+                            icon: const Icon(Icons.remove),
+
+                            onPressed: (){
+
+                              setState(() {
+
+                                if(items[index].quantity > 1){
+
+                                  items[index].quantity--;
+
+                                }
+
+                              });
+
+                            },
+
+                          ),
+
+                          // Quantity
+                          Text(
+                            items[index].quantity.toString(),
+                            style: const TextStyle(fontSize: 18),
+                          ),
+
+                          // Increase
+                          IconButton(
+
+                            icon: const Icon(Icons.add),
+
+                            onPressed: (){
+
+                              setState(() {
+
+                                items[index].quantity++;
+
+                              });
+
+                            },
+
+                          ),
+
+                          // Delete
+                          IconButton(
+
+                            icon: const Icon(Icons.delete,color: Colors.red),
+
+                            onPressed: (){
+
+                              setState(() {
+
+                                items.removeAt(index);
+
+                              });
+
+                            },
+
+                          ),
+
+                        ],
+
+                      ),
 
                     ),
 
@@ -129,9 +183,9 @@ class ProductsScreen extends StatelessWidget {
 
               ),
 
-            );
+            ),
 
-          },
+          ],
 
         ),
 
