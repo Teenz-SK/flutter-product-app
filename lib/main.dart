@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/products_screen.dart';
+import 'screens/posts_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +10,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(   // ❌ removed const here
+
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProductsScreen(),   // no const needed
+      home: const PostsScreen(),
     );
+
   }
+
 }

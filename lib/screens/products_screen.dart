@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import 'product_details_screen.dart';
+import 'posts_screen.dart';
 
 class ProductsScreen extends StatelessWidget {
 
   ProductsScreen({super.key});
 
-  // Dummy Product Data
   final List<Product> products = [
 
     Product(
       name: "Laptop",
       price: 55000,
-      description: "High performance laptop suitable for work and gaming.",
+      description: "High performance laptop suitable for work.",
     ),
 
     Product(
       name: "Mobile Phone",
       price: 25000,
-      description: "Latest smartphone with excellent camera quality.",
+      description: "Latest smartphone with excellent camera.",
     ),
 
     Product(
       name: "Headphones",
       price: 3000,
-      description: "Wireless headphones with noise cancellation feature.",
+      description: "Wireless headphones with noise cancellation.",
     ),
 
   ];
@@ -39,52 +39,75 @@ class ProductsScreen extends StatelessWidget {
         centerTitle: true,
       ),
 
-      body: ListView.builder(
+      body: Column(
 
-        itemCount: products.length,
+        children: [
 
-        itemBuilder: (context, index) {
+          const SizedBox(height: 10),
 
-          final product = products[index];
+          // BUTTON TO POSTS SCREEN
+          ElevatedButton(
 
-          return Card(
+            onPressed: () {
 
-            margin: const EdgeInsets.all(12),
-
-            elevation: 3,
-
-            child: ListTile(
-
-              title: Text(
-                product.name,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PostsScreen(),
                 ),
-              ),
+              );
 
-              subtitle: Text("₹${product.price}"),
+            },
 
-              trailing: const Icon(Icons.arrow_forward_ios),
+            child: const Text("View API Posts"),
 
-              onTap: () {
+          ),
 
-                // Passing FULL model object
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        ProductDetailsScreen(product: product),
+          const SizedBox(height: 10),
+
+          Expanded(
+
+            child: ListView.builder(
+
+              itemCount: products.length,
+
+              itemBuilder: (context, index) {
+
+                final product = products[index];
+
+                return Card(
+
+                  margin: const EdgeInsets.all(10),
+
+                  child: ListTile(
+
+                    title: Text(product.name),
+
+                    subtitle: Text("₹${product.price}"),
+
+                    onTap: () {
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ProductDetailsScreen(product: product),
+                        ),
+                      );
+
+                    },
+
                   ),
+
                 );
 
               },
 
             ),
 
-          );
+          ),
 
-        },
+        ],
 
       ),
 

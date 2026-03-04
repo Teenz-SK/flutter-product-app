@@ -54,7 +54,7 @@ class ProductDetailsScreen extends StatelessWidget {
               "Description",
               style: TextStyle(
                 fontSize: 20,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w100,
               ),
             ),
 
