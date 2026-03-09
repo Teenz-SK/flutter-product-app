@@ -6,41 +6,39 @@ class ApiService {
 
   Future<List<Post>> fetchPosts() async {
 
-  final url = Uri.parse(
-      "https://jsonplaceholder.typicode.com/posts");
-
-  try {
-
-    final response = await http.get(
-      url,
-      headers: {
-        "Content-Type": "application/json",
-      },
+    final url = Uri.parse(
+      "https://jsonplaceholder.typicode.com/posts",
     );
 
-    print("Status Code: ${response.statusCode}");
+    try {
 
-    if (response.statusCode == 200) {
+      final response = await http.get(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
 
-      List jsonData = json.decode(response.body);
+      if (response.statusCode == 200) {
 
-      return jsonData
-          .map((post) => Post.fromJson(post))
-          .toList();
+        List jsonData = json.decode(response.body);
 
-    } else {
+        return jsonData
+            .map((post) => Post.fromJson(post))
+            .toList();
 
-      throw Exception(
-          "Failed to load posts: ${response.statusCode}");
+      } else {
+
+        throw Exception(
+          "Failed to load posts: ${response.statusCode}",
+        );
+
+      }
+
+    } catch (e) {
+
+      throw Exception("Error: $e");
 
     }
-
-  } catch (e) {
-
-    throw Exception("Error: $e");
-
   }
-
-}
-
 }
