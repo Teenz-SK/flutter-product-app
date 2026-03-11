@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/posts_screen.dart';
+import 'screens/product_grid_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Posts App',
+      title: 'Product Grid',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.grey.shade100,
       ),
-      home: const PostsScreen(),
+      home: ProductGridScreen(),
     );
   }
 }

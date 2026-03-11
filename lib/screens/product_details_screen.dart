@@ -1,81 +1,81 @@
-import 'package:flutter/material.dart';
-import '../models/product.dart';
+// import 'package:flutter/material.dart';
+// import '../models/product.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+// class ProductDetailsScreen extends StatelessWidget {
 
-  final Product product;
+//   final Product product;
 
-  const ProductDetailsScreen({
-    super.key,
-    required this.product,
-  });
+//   const ProductDetailsScreen({
+//     super.key,
+//     required this.product,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
+//   @override
+//   Widget build(BuildContext context) {
 
-    return Scaffold(
+//     return Scaffold(
 
-      appBar: AppBar(
-        title: const Text("Product Details"),
-        centerTitle: true,
-      ),
+//       appBar: AppBar(
+//         title: const Text("Product Details"),
+//         centerTitle: true,
+//       ),
 
-      body: Padding(
+//       body: Padding(
 
-        padding: const EdgeInsets.all(20),
+//         padding: const EdgeInsets.all(20),
 
-        child: Column(
+//         child: Column(
 
-          crossAxisAlignment: CrossAxisAlignment.start,
+//           crossAxisAlignment: CrossAxisAlignment.start,
 
-          children: [
+//           children: [
 
-            Text(
-              product.name,
-              style: const TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+//             Text(
+//               product.name,
+//               style: const TextStyle(
+//                 fontSize: 26,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),
 
-            const SizedBox(height: 15),
+//             const SizedBox(height: 15),
 
-            Text(
-              "Price: ₹${product.price}",
-              style: const TextStyle(
-                fontSize: 20,
-                color: Colors.green,
-              ),
-            ),
+//             Text(
+//               "Price: ₹${product.price}",
+//               style: const TextStyle(
+//                 fontSize: 20,
+//                 color: Colors.green,
+//               ),
+//             ),
 
-            const SizedBox(height: 25),
+//             const SizedBox(height: 25),
 
-            const Text(
-              "Description",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w100,
-              ),
-            ),
+//             const Text(
+//               "Description",
+//               style: TextStyle(
+//                 fontSize: 20,
+//                 fontWeight: FontWeight.w100,
+//               ),
+//             ),
 
-            const SizedBox(height: 10),
+//             const SizedBox(height: 10),
 
-            Text(
-              product.description,
-              style: const TextStyle(
-                fontSize: 16,
-                height: 1.5,
-              ),
-            ),
+//             Text(
+//               product.description,
+//               style: const TextStyle(
+//                 fontSize: 16,
+//                 height: 1.5,
+//               ),
+//             ),
 
-          ],
+//           ],
 
-        ),
+//         ),
 
-      ),
+//       ),
 
-    );
+//     );
 
-  }
+//   }
 
-}
+// }

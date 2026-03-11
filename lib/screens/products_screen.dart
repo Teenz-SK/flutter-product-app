@@ -1,118 +1,118 @@
-import 'package:flutter/material.dart';
-import '../models/product.dart';
-import 'product_details_screen.dart';
-import 'posts_screen.dart';
+// import 'package:flutter/material.dart';
+// import '../models/product.dart';
+// import 'product_details_screen.dart';
+// import 'posts_screen.dart';
 
-class ProductsScreen extends StatelessWidget {
+// class ProductsScreen extends StatelessWidget {
 
-  ProductsScreen({super.key});
+//   ProductsScreen({super.key});
 
-  final List<Product> products = [
+//   final List<Product> products = [
 
-    Product(
-      name: "Laptop",
-      price: 55000,
-      description: "High performance laptop suitable for work.",
-    ),
+//     Product(
+//       name: "Laptop",
+//       price: 55000,
+//       description: "High performance laptop suitable for work.",
+//     ),
 
-    Product(
-      name: "Mobile Phone",
-      price: 25000,
-      description: "Latest smartphone with excellent camera.",
-    ),
+//     Product(
+//       name: "Mobile Phone",
+//       price: 25000,
+//       description: "Latest smartphone with excellent camera.",
+//     ),
 
-    Product(
-      name: "Headphones",
-      price: 3000,
-      description: "Wireless headphones with noise cancellation.",
-    ),
+//     Product(
+//       name: "Headphones",
+//       price: 3000,
+//       description: "Wireless headphones with noise cancellation.",
+//     ),
 
-  ];
+//   ];
 
-  @override
-  Widget build(BuildContext context) {
+//   @override
+//   Widget build(BuildContext context) {
 
-    return Scaffold(
+//     return Scaffold(
 
-      appBar: AppBar(
-        title: const Text("Products"),
-        centerTitle: true,
-      ),
+//       appBar: AppBar(
+//         title: const Text("Products"),
+//         centerTitle: true,
+//       ),
 
-      body: Column(
+//       body: Column(
 
-        children: [
+//         children: [
 
-          const SizedBox(height: 10),
+//           const SizedBox(height: 10),
 
-          // BUTTON TO POSTS SCREEN
-          ElevatedButton(
+//           // BUTTON TO POSTS SCREEN
+//           ElevatedButton(
 
-            onPressed: () {
+//             onPressed: () {
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PostsScreen(),
-                ),
-              );
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (context) => const PostsScreen(),
+//                 ),
+//               );
 
-            },
+//             },
 
-            child: const Text("View API Posts"),
+//             child: const Text("View API Posts"),
 
-          ),
+//           ),
 
-          const SizedBox(height: 10),
+//           const SizedBox(height: 10),
 
-          Expanded(
+//           Expanded(
 
-            child: ListView.builder(
+//             child: ListView.builder(
 
-              itemCount: products.length,
+//               itemCount: products.length,
 
-              itemBuilder: (context, index) {
+//               itemBuilder: (context, index) {
 
-                final product = products[index];
+//                 final product = products[index];
 
-                return Card(
+//                 return Card(
 
-                  margin: const EdgeInsets.all(10),
+//                   margin: const EdgeInsets.all(10),
 
-                  child: ListTile(
+//                   child: ListTile(
 
-                    title: Text(product.name),
+//                     title: Text(product.name),
 
-                    subtitle: Text("₹${product.price}"),
+//                     subtitle: Text("₹${product.price}"),
 
-                    onTap: () {
+//                     onTap: () {
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ProductDetailsScreen(product: product),
-                        ),
-                      );
+//                       Navigator.push(
+//                         context,
+//                         MaterialPageRoute(
+//                           builder: (context) =>
+//                               ProductDetailsScreen(product: product),
+//                         ),
+//                       );
 
-                    },
+//                     },
 
-                  ),
+//                   ),
 
-                );
+//                 );
 
-              },
+//               },
 
-            ),
+//             ),
 
-          ),
+//           ),
 
-        ],
+//         ],
 
-      ),
+//       ),
 
-    );
+//     );
 
-  }
+//   }
 
-}
+// }
