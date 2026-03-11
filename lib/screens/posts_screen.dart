@@ -14,10 +14,31 @@ class _PostsScreenState extends State<PostsScreen> {
 
   late Future<List<Post>> futurePosts;
 
+  List<Post> allPosts = [];
+  List<Post> filteredPosts = [];
+
   @override
   void initState() {
     super.initState();
     futurePosts = ApiService().fetchPosts();
+  }
+
+  void searchPosts(String query) {
+
+    final results = allPosts.where((post) {
+
+      final title = post.title.toLowerCase();
+      final body = post.body.toLowerCase();
+      final input = query.toLowerCase();
+
+      return title.contains(input) || body.contains(input);
+
+    }).toList();
+
+    setState(() {
+      filteredPosts = results;
+    });
+
   }
 
   @override
@@ -28,6 +49,29 @@ class _PostsScreenState extends State<PostsScreen> {
       appBar: AppBar(
         title: const Text("API Posts"),
         centerTitle: true,
+
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: TextField(
+
+              onChanged: searchPosts,
+
+              decoration: InputDecoration(
+                hintText: "Search posts...",
+                prefixIcon: const Icon(Icons.search),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+
+            ),
+          ),
+        ),
       ),
 
       body: FutureBuilder<List<Post>>(
@@ -65,15 +109,16 @@ class _PostsScreenState extends State<PostsScreen> {
 
           else if (snapshot.hasData) {
 
-            final posts = snapshot.data!;
+            allPosts = snapshot.data!;
+            filteredPosts = filteredPosts.isEmpty ? allPosts : filteredPosts;
 
             return ListView.builder(
 
-              itemCount: posts.length,
+              itemCount: filteredPosts.length,
 
               itemBuilder: (context, index) {
 
-                final post = posts[index];
+                final post = filteredPosts[index];
 
                 return GestureDetector(
 
