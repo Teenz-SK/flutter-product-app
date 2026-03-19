@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:theme_toggle_app/screens/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   bool isDarkMode = false;
 
   void toggleTheme() {
@@ -23,26 +23,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      theme: ThemeData.light(),
+      theme: ThemeData(scaffoldBackgroundColor: Colors.black),
 
       darkTheme: ThemeData.dark(),
 
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
 
-      home: HomeScreen(
-        isDarkMode: isDarkMode,
-        toggleTheme: toggleTheme,
-      ),
+      home: HomeScreen(isDarkMode: isDarkMode, toggleTheme: toggleTheme),
     );
   }
 }
 
 class HomeScreen extends StatelessWidget {
-
   final bool isDarkMode;
   final VoidCallback toggleTheme;
 
@@ -54,9 +49,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       appBar: AppBar(
         title: const Text("Theme Switch"),
         centerTitle: true,
@@ -64,11 +57,19 @@ class HomeScreen extends StatelessWidget {
       ),
 
       body: Center(
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to Profile Screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Profile()),
+                );
+              },
+              child: const Text("Profile"),
+            ),
             AnimatedContainer(
               duration: const Duration(milliseconds: 400),
               padding: const EdgeInsets.all(25),
@@ -81,13 +82,12 @@ class HomeScreen extends StatelessWidget {
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 10,
-                  )
+                  ),
                 ],
               ),
 
               child: Column(
                 children: [
-
                   Icon(
                     isDarkMode ? Icons.dark_mode : Icons.light_mode,
                     size: 70,
@@ -97,9 +97,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 20),
 
                   Text(
-                    isDarkMode
-                        ? "Dark Mode Enabled"
-                        : "Light Mode Enabled",
+                    isDarkMode ? "Dark Mode Enabled" : "Light Mode Enabled",
                     style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -121,16 +119,12 @@ class HomeScreen extends StatelessWidget {
                     },
 
                     secondary: Icon(
-                      isDarkMode
-                          ? Icons.nightlight_round
-                          : Icons.wb_sunny,
+                      isDarkMode ? Icons.nightlight_round : Icons.wb_sunny,
                     ),
                   ),
-
                 ],
               ),
             ),
-
           ],
         ),
       ),
